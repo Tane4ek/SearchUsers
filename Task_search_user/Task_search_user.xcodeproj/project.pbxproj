@@ -16,6 +16,9 @@
 		096CB401279595F4008F11D5 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB400279595F4008F11D5 /* NetworkingService.swift */; };
 		096CB4062795A41E008F11D5 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB4052795A41E008F11D5 /* CollectionViewCell.swift */; };
 		096CB4082796E386008F11D5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB4072796E386008F11D5 /* UserModel.swift */; };
+		096CB41227974A35008F11D5 /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41127974A35008F11D5 /* DetailUserViewController.swift */; };
+		096CB41627974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41527974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift */; };
+		096CB41827974FF0008F11D5 /* DetailUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41727974FF0008F11D5 /* DetailUserCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		096CB400279595F4008F11D5 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		096CB4052795A41E008F11D5 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		096CB4072796E386008F11D5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		096CB41127974A35008F11D5 /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
+		096CB41527974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		096CB41727974FF0008F11D5 /* DetailUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +71,7 @@
 				096CB3EA27958F1E008F11D5 /* AppDelegate.swift */,
 				096CB3EC27958F1E008F11D5 /* SceneDelegate.swift */,
 				096CB402279595FC008F11D5 /* UserList */,
-				096CB40D279741F4008F11D5 /* DetailUser */,
+				096CB41027974A11008F11D5 /* DetailUser */,
 				096CB3F327958F20008F11D5 /* Assets.xcassets */,
 				096CB3F527958F20008F11D5 /* LaunchScreen.storyboard */,
 				096CB3F827958F20008F11D5 /* Info.plist */,
@@ -85,9 +91,12 @@
 			path = UserList;
 			sourceTree = "<group>";
 		};
-		096CB40D279741F4008F11D5 /* DetailUser */ = {
+		096CB41027974A11008F11D5 /* DetailUser */ = {
 			isa = PBXGroup;
 			children = (
+				096CB41127974A35008F11D5 /* DetailUserViewController.swift */,
+				096CB41527974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift */,
+				096CB41727974FF0008F11D5 /* DetailUserCollectionViewCell.swift */,
 			);
 			path = DetailUser;
 			sourceTree = "<group>";
@@ -164,6 +173,9 @@
 			files = (
 				096CB401279595F4008F11D5 /* NetworkingService.swift in Sources */,
 				096CB4082796E386008F11D5 /* UserModel.swift in Sources */,
+				096CB41827974FF0008F11D5 /* DetailUserCollectionViewCell.swift in Sources */,
+				096CB41227974A35008F11D5 /* DetailUserViewController.swift in Sources */,
+				096CB41627974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift in Sources */,
 				096CB3FF279590F5008F11D5 /* SearchResponse.swift in Sources */,
 				096CB3EF27958F1E008F11D5 /* UserListViewController.swift in Sources */,
 				096CB4062795A41E008F11D5 /* CollectionViewCell.swift in Sources */,

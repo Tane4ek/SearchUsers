@@ -78,14 +78,12 @@ class UserListViewController: UIViewController {
     }
     
     func setupNavigationBar() {
-//        navigationController!.navigationBar.backgroundColor = UIColor.lightGray
         navigationController?.navigationBar.tintColor = UIColor.black
         title = "Search users"
         
     }
     
     func setupTextField() {
-        //        textField.backgroundColor = UIColor.white
         textField.layer.borderColor = UIColor.gray.cgColor
         textField.layer.borderWidth = 1
         textField.placeholder = "Type here..."
@@ -113,9 +111,7 @@ class UserListViewController: UIViewController {
     
     func setupSegmentControl() {
         segmentedControl = UISegmentedControl(items: ["Followers", "Repositories", "Joined"])
-        segmentedControl.layer.cornerRadius = 9
-        //        segmentControl.layer.borderColor = UIColor.white.cgColor
-        //        segmentControl.layer.borderWidth = 1
+        segmentedControl.layer.cornerRadius = 10
         segmentedControl.setWidth(80, forSegmentAt: 0)
         segmentedControl.setWidth(90, forSegmentAt: 1)
         segmentedControl.setWidth(80, forSegmentAt: 2)
@@ -206,10 +202,9 @@ class UserListViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension UserListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        let rocketVC = Rocket2ViewController()
-        //        rocketVC.index = indexPath.row
-        //
-        //        navigationController?.pushViewController(rocketVC, animated: true)
+        let detailUserVC = DetailUserViewController(userName: array[indexPath.row].login)
+        
+                navigationController?.pushViewController(detailUserVC, animated: true)
     }
 }
 
@@ -227,8 +222,7 @@ extension UserListViewController: UICollectionViewDataSource {
         cell.id.text = String(array[indexPath.row].id)
         let string = array[indexPath.row].avatar
         let image = getImage(from: string, completion: { (image: UIImage?) in
-                    cell.avatar.image = image
-                })
+                    cell.avatar.image = image })
         return cell
     }
 }
