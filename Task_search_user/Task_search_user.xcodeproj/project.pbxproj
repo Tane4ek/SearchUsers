@@ -12,13 +12,20 @@
 		096CB3EF27958F1E008F11D5 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB3EE27958F1E008F11D5 /* UserListViewController.swift */; };
 		096CB3F427958F20008F11D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096CB3F327958F20008F11D5 /* Assets.xcassets */; };
 		096CB3F727958F20008F11D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096CB3F527958F20008F11D5 /* LaunchScreen.storyboard */; };
-		096CB3FF279590F5008F11D5 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB3FE279590F5008F11D5 /* SearchResponse.swift */; };
-		096CB401279595F4008F11D5 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB400279595F4008F11D5 /* NetworkingService.swift */; };
+		096CB3FF279590F5008F11D5 /* UserSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB3FE279590F5008F11D5 /* UserSearchResponse.swift */; };
+		096CB401279595F4008F11D5 /* UserNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB400279595F4008F11D5 /* UserNetworkingService.swift */; };
 		096CB4062795A41E008F11D5 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB4052795A41E008F11D5 /* CollectionViewCell.swift */; };
 		096CB4082796E386008F11D5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB4072796E386008F11D5 /* UserModel.swift */; };
 		096CB41227974A35008F11D5 /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41127974A35008F11D5 /* DetailUserViewController.swift */; };
 		096CB41627974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41527974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift */; };
 		096CB41827974FF0008F11D5 /* DetailUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41727974FF0008F11D5 /* DetailUserCollectionViewCell.swift */; };
+		096CB41A27983070008F11D5 /* UserListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41927983070008F11D5 /* UserListProtocol.swift */; };
+		096CB41C27983082008F11D5 /* UserListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41B27983082008F11D5 /* UserListPresenter.swift */; };
+		096CB41E279830B4008F11D5 /* UserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41D279830B4008F11D5 /* UserListRouter.swift */; };
+		096CB420279830CA008F11D5 /* UserListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB41F279830CA008F11D5 /* UserListConfigurator.swift */; };
+		096CB4252798314E008F11D5 /* DetailUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB4242798314E008F11D5 /* DetailUserModel.swift */; };
+		096CB42A279844F4008F11D5 /* DetailUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB429279844F4008F11D5 /* DetailUserResponse.swift */; };
+		096CB42C279846D0008F11D5 /* DetailUserNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB42B279846D0008F11D5 /* DetailUserNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,13 +36,20 @@
 		096CB3F327958F20008F11D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		096CB3F627958F20008F11D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		096CB3F827958F20008F11D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		096CB3FE279590F5008F11D5 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
-		096CB400279595F4008F11D5 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		096CB3FE279590F5008F11D5 /* UserSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResponse.swift; sourceTree = "<group>"; };
+		096CB400279595F4008F11D5 /* UserNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkingService.swift; sourceTree = "<group>"; };
 		096CB4052795A41E008F11D5 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		096CB4072796E386008F11D5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		096CB41127974A35008F11D5 /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
 		096CB41527974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		096CB41727974FF0008F11D5 /* DetailUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		096CB41927983070008F11D5 /* UserListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListProtocol.swift; sourceTree = "<group>"; };
+		096CB41B27983082008F11D5 /* UserListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresenter.swift; sourceTree = "<group>"; };
+		096CB41D279830B4008F11D5 /* UserListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRouter.swift; sourceTree = "<group>"; };
+		096CB41F279830CA008F11D5 /* UserListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListConfigurator.swift; sourceTree = "<group>"; };
+		096CB4242798314E008F11D5 /* DetailUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserModel.swift; sourceTree = "<group>"; };
+		096CB429279844F4008F11D5 /* DetailUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserResponse.swift; sourceTree = "<group>"; };
+		096CB42B279846D0008F11D5 /* DetailUserNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserNetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +84,9 @@
 			children = (
 				096CB3EA27958F1E008F11D5 /* AppDelegate.swift */,
 				096CB3EC27958F1E008F11D5 /* SceneDelegate.swift */,
-				096CB402279595FC008F11D5 /* UserList */,
-				096CB41027974A11008F11D5 /* DetailUser */,
+				096CB422279830F1008F11D5 /* Models */,
+				096CB4232798310B008F11D5 /* Modules */,
+				096CB421279830D0008F11D5 /* NetworkingService */,
 				096CB3F327958F20008F11D5 /* Assets.xcassets */,
 				096CB3F527958F20008F11D5 /* LaunchScreen.storyboard */,
 				096CB3F827958F20008F11D5 /* Info.plist */,
@@ -82,11 +97,12 @@
 		096CB402279595FC008F11D5 /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				096CB42627983165008F11D5 /* cell */,
+				096CB41927983070008F11D5 /* UserListProtocol.swift */,
 				096CB3EE27958F1E008F11D5 /* UserListViewController.swift */,
-				096CB4072796E386008F11D5 /* UserModel.swift */,
-				096CB4052795A41E008F11D5 /* CollectionViewCell.swift */,
-				096CB3FE279590F5008F11D5 /* SearchResponse.swift */,
-				096CB400279595F4008F11D5 /* NetworkingService.swift */,
+				096CB41B27983082008F11D5 /* UserListPresenter.swift */,
+				096CB41D279830B4008F11D5 /* UserListRouter.swift */,
+				096CB41F279830CA008F11D5 /* UserListConfigurator.swift */,
 			);
 			path = UserList;
 			sourceTree = "<group>";
@@ -97,6 +113,59 @@
 				096CB41127974A35008F11D5 /* DetailUserViewController.swift */,
 				096CB41527974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift */,
 				096CB41727974FF0008F11D5 /* DetailUserCollectionViewCell.swift */,
+			);
+			path = DetailUser;
+			sourceTree = "<group>";
+		};
+		096CB421279830D0008F11D5 /* NetworkingService */ = {
+			isa = PBXGroup;
+			children = (
+				096CB4272798320E008F11D5 /* UserList */,
+				096CB42827983220008F11D5 /* DetailUser */,
+			);
+			path = NetworkingService;
+			sourceTree = "<group>";
+		};
+		096CB422279830F1008F11D5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				096CB4072796E386008F11D5 /* UserModel.swift */,
+				096CB4242798314E008F11D5 /* DetailUserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		096CB4232798310B008F11D5 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				096CB402279595FC008F11D5 /* UserList */,
+				096CB41027974A11008F11D5 /* DetailUser */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		096CB42627983165008F11D5 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				096CB4052795A41E008F11D5 /* CollectionViewCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		096CB4272798320E008F11D5 /* UserList */ = {
+			isa = PBXGroup;
+			children = (
+				096CB3FE279590F5008F11D5 /* UserSearchResponse.swift */,
+				096CB400279595F4008F11D5 /* UserNetworkingService.swift */,
+			);
+			path = UserList;
+			sourceTree = "<group>";
+		};
+		096CB42827983220008F11D5 /* DetailUser */ = {
+			isa = PBXGroup;
+			children = (
+				096CB429279844F4008F11D5 /* DetailUserResponse.swift */,
+				096CB42B279846D0008F11D5 /* DetailUserNetworkService.swift */,
 			);
 			path = DetailUser;
 			sourceTree = "<group>";
@@ -171,16 +240,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				096CB401279595F4008F11D5 /* NetworkingService.swift in Sources */,
+				096CB401279595F4008F11D5 /* UserNetworkingService.swift in Sources */,
+				096CB41C27983082008F11D5 /* UserListPresenter.swift in Sources */,
 				096CB4082796E386008F11D5 /* UserModel.swift in Sources */,
 				096CB41827974FF0008F11D5 /* DetailUserCollectionViewCell.swift in Sources */,
+				096CB42A279844F4008F11D5 /* DetailUserResponse.swift in Sources */,
+				096CB41A27983070008F11D5 /* UserListProtocol.swift in Sources */,
 				096CB41227974A35008F11D5 /* DetailUserViewController.swift in Sources */,
+				096CB42C279846D0008F11D5 /* DetailUserNetworkService.swift in Sources */,
 				096CB41627974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift in Sources */,
-				096CB3FF279590F5008F11D5 /* SearchResponse.swift in Sources */,
+				096CB4252798314E008F11D5 /* DetailUserModel.swift in Sources */,
+				096CB3FF279590F5008F11D5 /* UserSearchResponse.swift in Sources */,
 				096CB3EF27958F1E008F11D5 /* UserListViewController.swift in Sources */,
+				096CB41E279830B4008F11D5 /* UserListRouter.swift in Sources */,
 				096CB4062795A41E008F11D5 /* CollectionViewCell.swift in Sources */,
 				096CB3EB27958F1E008F11D5 /* AppDelegate.swift in Sources */,
 				096CB3ED27958F1E008F11D5 /* SceneDelegate.swift in Sources */,
+				096CB420279830CA008F11D5 /* UserListConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class NetworkService {
+class UserNetworkService {
     
-    func request(urlString: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
+    func request(urlString: String, completion: @escaping (Result<UserSearchResponse, Error>) -> Void) {
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         session.dataTask(with: url) { data, response, error in
@@ -23,7 +23,7 @@ class NetworkService {
         guard let data = data else { return }
                 
                 do {
-                    let users = try JSONDecoder().decode(SearchResponse.self, from: data)
+                    let users = try JSONDecoder().decode(UserSearchResponse.self, from: data)
                     completion(.success(users))
                 } catch let jsonError {
                     print("Failer to decode JSON", jsonError)

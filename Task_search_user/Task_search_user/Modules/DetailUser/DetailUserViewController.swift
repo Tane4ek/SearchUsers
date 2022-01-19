@@ -27,10 +27,10 @@ class DetailUserViewController: UIViewController {
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     
-    let networkService = NetworkService()
-    var searcResponce: SearchResponse? = nil
-    var array: [UsersModel] = []
-//    var userResponce: String = ""
+    let networkService = DetailUserNetworkService()
+    var detailsearcResponce: DetailUserSearchResponse? = nil
+    var model: DetailUserModel = DetailUserModel(avatar: "", name: "", company: "", email: "", followers: 0)
+    
     
     let userName: String
     
@@ -50,20 +50,21 @@ class DetailUserViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //                updateDataFromServer(request: "")
+        updateDataFromServer(request: userName)
     }
     
     func updateDataFromServer(request: String) {
-        let urlString = "https://api.github.com/search/users/" + userName
+        let urlString = "https://api.github.com/users/" + request
         networkService.request(urlString: urlString) { [weak self] (result) in
             switch result {
             case .success(let searchResponse):
-                self?.searcResponce = searchResponse
+                self?.detailsearcResponce = searchResponse
                 self?.collectionView.reloadData()
-                
-                self?.array = searchResponse.items.map{
-                    UsersModel(login: $0.login, id: $0.id, avatar: $0.avatar, followers: $0.followers)
-                }
+                self?.model.avatar = searchResponse.avatar
+                self?.model.name = searchResponse.name
+                self?.model.company = searchResponse.company
+                self?.model.email = searchResponse.email
+                self?.model.followers = searchResponse.followers
             case .failure(let error):
                 print(error)
             }
@@ -83,12 +84,12 @@ class DetailUserViewController: UIViewController {
     
     func setupCollectionView() {
         collectionView.register(DetailUserImageCollectionViewCell.self, forCellWithReuseIdentifier: DetailUserImageCollectionViewCell.reusedId)
-//        collectionView.register(DetailUserCollectionViewCell.self, forCellWithReuseIdentifier: DetailUserCollectionViewCell.reusedId)
+        collectionView.register(DetailUserCollectionViewCell.self, forCellWithReuseIdentifier: DetailUserCollectionViewCell.reusedId)
         layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.delegate = self
         collectionView.dataSource = self
-        layout.minimumLineSpacing = 10
+        //        layout.minimumLineSpacing = 10
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 30, right: 0)
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -128,38 +129,80 @@ class DetailUserViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDelegate
-extension DetailUserViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailUserVC = DetailUserViewController(userName: array[indexPath.row].login)
-        
-        navigationController?.pushViewController(detailUserVC, animated: true)
-    }
-}
-
 // MARK: - UICollectionViewDataSource
 extension DetailUserViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return array.count
+        var items = 0
+        if let currentNumberOfSection = DetailUserSection(rawValue: section) {
+            switch currentNumberOfSection {
+                
+            case .avatar:
+                items = 1
+            case .otherInformation:
+                items = OtherInformationSection.followers.rawValue + 1
+            }
+        }
+        return items
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return DetailUserSection.otherInformation.rawValue + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.reusedId, for: indexPath) as! CollectionViewCell
-        cell.layer.cornerRadius = 20
-        cell.login.text = array[indexPath.row].login
-        cell.id.text = String(array[indexPath.row].id)
-        let string = array[indexPath.row].avatar
-        let image = getImage(from: string, completion: { (image: UIImage?) in
-            cell.avatar.image = image
-        })
-        return cell
+        //        cell.login.text = array[indexPath.row].login
+        //        cell.id.text = String(array[indexPath.row].id)
+        //        let string = array[indexPath.row].avatar
+        //        let image = getImage(from: string, completion: { (image: UIImage?) in
+        //            cell.avatar.image = image
+        //        })
+        
+        if indexPath.section == DetailUserSection.avatar.rawValue {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailUserImageCollectionViewCell.reusedId, for: indexPath) as! DetailUserImageCollectionViewCell
+            let string = model.avatar
+            let image = getImage(from: string, completion: { (image: UIImage?) in
+                cell.avatar.image = image
+            })
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailUserCollectionViewCell.reusedId, for: indexPath) as! DetailUserCollectionViewCell
+            if let currentCell = OtherInformationSection(rawValue: indexPath.row) {
+                switch currentCell {
+                    
+                case .name:
+                    cell.labelData.text = "name:"
+                    cell.labelValue.text = model.name
+                case .company:
+                    cell.labelData.text = "company:"
+                    cell.labelValue.text = model.company ?? ""
+                case .email:
+                    cell.labelData.text = "email:"
+                    cell.labelValue.text = model.email ?? ""
+                case .followers:
+                    cell.labelData.text = "followers:"
+                    cell.labelValue.text = String(model.followers)
+                }
+            }
+            return cell
+        }
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension DetailUserViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 30, height: 70)
+        var heightOfRow = CGSize(width: 0, height: 0)
+        if let currentNumberOfSection = DetailUserSection(rawValue: indexPath.section) {
+            switch currentNumberOfSection {
+                
+            case .avatar:
+                heightOfRow = CGSize(width: view.frame.width, height: 300)
+            case .otherInformation:
+                
+                heightOfRow = CGSize(width: view.frame.width, height: 50)
+            }
+        }
+        return heightOfRow
     }
 }

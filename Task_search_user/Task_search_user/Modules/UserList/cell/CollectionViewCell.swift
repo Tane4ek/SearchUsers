@@ -50,22 +50,16 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     func setupContainerView() {
-        containerView.backgroundColor = UIColor.white
-        containerView.layer.borderColor = UIColor.gray.cgColor
+        containerView.layer.borderColor = UIColor.black.cgColor
         containerView.layer.borderWidth = 1
-        containerView.layer.shadowColor = UIColor.black.cgColor
-        containerView.layer.shadowOpacity = 0.5
-        containerView.layer.shadowOffset = CGSize.zero
-        containerView.layer.shadowRadius = 5
         containerView.layer.cornerRadius = 20
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
     }
     
     func setupAvatar() {
-        avatar.image = UIImage(named: "Placeholder")
-        //        rocketImage.image = SearchResponse.image ? user.image : UIImage(named: "Placeholder")
-        avatar.backgroundColor = UIColor.blue
+        avatar.layer.borderColor = UIColor.black.cgColor
+        avatar.layer.borderWidth = 1
         avatar.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(avatar)
     }
@@ -116,6 +110,11 @@ class CollectionViewCell: UICollectionViewCell {
             chevron.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Paddings.Chevron.horizontalInset),
             chevron.widthAnchor.constraint(equalToConstant: Paddings.Chevron.size)
         ])
+    }
+    
+    func configure(model: UsersModel) {
+        login.text = model.login
+        id.text = String(model.id)
     }
     
     required init?(coder: NSCoder) {

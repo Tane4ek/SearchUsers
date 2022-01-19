@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct SearchResponse: Decodable {
+struct UserSearchResponse: Decodable {
     var items: [Users]
 }
 
 //MARK: - Users
-extension SearchResponse {
+extension UserSearchResponse {
     struct Users: Decodable {
         var login: String
         var id: Int
