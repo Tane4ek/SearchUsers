@@ -178,6 +178,14 @@ class UserListViewController: UIViewController {
         ])
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touches.first != nil {
+            view.endEditing(true)
+        } else {
+            super.touchesBegan(touches, with: event)
+        }
+    }
+    
     @objc func selectedValue(target: UISegmentedControl) {
         if presenter.numberOfItems() != 0 {
             if target == self.segmentedControl {
@@ -195,13 +203,6 @@ class UserListViewController: UIViewController {
     }
     
     @objc func pullToRefresh(sender: UIRefreshControl) {
-        //        if userRequest == "" {
-        //            collectionView.isHidden = true
-        //            noUsersLabel.isHidden = false
-        //        } else {
-        ////            updateDataFromServer(request: userRequest)
-        //            noUsersLabel.isHidden = true
-        //        }
         presenter.buttonSearchTapped(text: userRequest)
         sender.endRefreshing()
     }
