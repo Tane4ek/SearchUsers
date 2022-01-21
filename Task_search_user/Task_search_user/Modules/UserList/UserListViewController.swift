@@ -179,15 +179,18 @@ class UserListViewController: UIViewController {
     }
     
     @objc func selectedValue(target: UISegmentedControl) {
-        
-        if target == self.segmentedControl {
-            if target.selectedSegmentIndex == 0 {
-                presenter.segmentControledTapped(text: userRequest, sort: "followers")
-            } else if target.selectedSegmentIndex == 1 {
-                presenter.segmentControledTapped(text: userRequest, sort: "repo")
-            } else {
-                presenter.segmentControledTapped(text: userRequest, sort: "joned")
+        if presenter.numberOfItems() != 0 {
+            if target == self.segmentedControl {
+                if target.selectedSegmentIndex == 0 {
+                    presenter.segmentControledTapped(text: userRequest, sort: "followers")
+                } else if target.selectedSegmentIndex == 1 {
+                    presenter.segmentControledTapped(text: userRequest, sort: "repo")
+                } else {
+                    presenter.segmentControledTapped(text: userRequest, sort: "joned")
+                }
             }
+        } else {
+            return
         }
     }
     

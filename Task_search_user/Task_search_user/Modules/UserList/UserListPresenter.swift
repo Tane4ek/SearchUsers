@@ -39,6 +39,8 @@ extension UserListPresenter: UserListViewOutput {
             }
         } else {
             router?.showAlert()
+            models = []
+            view?.reloadUI()
         }
     }
     
@@ -57,7 +59,7 @@ extension UserListPresenter: UserListViewOutput {
             }
         }
     }
-
+  
     func didSelectRowAt(index: Int) {
         let currentUser = models[index].login
         router?.showDetailUserModule(name: currentUser)
