@@ -163,7 +163,6 @@ extension DetailUserViewController: UICollectionViewDelegateFlowLayout {
             case .avatar:
                 heightOfRow = CGSize(width: view.frame.width, height: 300)
             case .otherInformation:
-                
                 heightOfRow = CGSize(width: view.frame.width, height: 60)
             }
         }
