@@ -2,14 +2,14 @@
 //  DetailUserImageCollectionViewCell.swift
 //  Task_search_user
 //
-//  Created by Поздняков Игорь Николаевич on 18.01.2022.
+//  Created by Татьяна Лузанова on 18.01.2022.
 //
 
 import UIKit
 
 class DetailUserImageCollectionViewCell: UICollectionViewCell {
     
-    private enum Paddings {
+    private enum Layout {
     
         enum Avatar {
             static let size: CGFloat = 200
@@ -21,10 +21,14 @@ class DetailUserImageCollectionViewCell: UICollectionViewCell {
     var containerView = UIView(frame: .zero)
     var avatar = UIImageView(frame: .zero)
 
+//      MARK: -Setup 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupUIElements()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupUIElements() {
@@ -55,13 +59,9 @@ class DetailUserImageCollectionViewCell: UICollectionViewCell {
             
             avatar.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             avatar.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            avatar.heightAnchor.constraint(equalToConstant: Paddings.Avatar.size),
-            avatar.widthAnchor.constraint(equalToConstant: Paddings.Avatar.size)
+            avatar.heightAnchor.constraint(equalToConstant: Layout.Avatar.size),
+            avatar.widthAnchor.constraint(equalToConstant: Layout.Avatar.size)
             
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

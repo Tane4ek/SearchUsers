@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+class UserCollectionViewCell: UICollectionViewCell {
     
-    private enum Paddings {
+    private enum Layout {
     
         enum Avatar {
             static let positionInset: CGFloat = 10
@@ -26,18 +26,23 @@ class CollectionViewCell: UICollectionViewCell {
         }
     }
 
-    static let reusedId = "CollectionViewCell"
+    static let reusedId = "UserCollectionViewCell"
     
-    var containerView = UIView(frame: .zero)
+    private var containerView = UIView(frame: .zero)
     var avatar = UIImageView(frame: .zero)
-    var id = UILabel(frame: .zero)
-    var login = UILabel()
-    var chevron = UIImageView(frame: .zero)
+    private var id = UILabel(frame: .zero)
+    private var login = UILabel()
+    private var chevron = UIImageView(frame: .zero)
 
+//    MARK: -Setup
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupUIElements()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupUIElements() {
@@ -65,16 +70,14 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     func setupLoginLabel() {
-        login.text = "Login"
-        login.font = UIFont(name: "Helvetica", size: 24)
+        login.font = UIFont.systemFont(ofSize: 24)
         login.tintColor = UIColor.black
         login.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(login)
     }
     
     func setupIdLabel() {
-        id.text = "ID"
-        id.font = UIFont(name: "Helvetica", size: 20)
+        id.font = UIFont.systemFont(ofSize: 20)
         id.tintColor = UIColor.black
         id.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(id)
@@ -93,31 +96,29 @@ class CollectionViewCell: UICollectionViewCell {
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            avatar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Paddings.Avatar.positionInset),
-            avatar.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Paddings.Avatar.positionInset),
-            avatar.heightAnchor.constraint(equalToConstant: Paddings.Avatar.size),
-            avatar.widthAnchor.constraint(equalToConstant: Paddings.Avatar.size),
+            avatar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Layout.Avatar.positionInset),
+            avatar.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Layout.Avatar.positionInset),
+            avatar.heightAnchor.constraint(equalToConstant: Layout.Avatar.size),
+            avatar.widthAnchor.constraint(equalToConstant: Layout.Avatar.size),
             
-            login.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: Paddings.Labels.leftInset),
-            login.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Paddings.Labels.verticalInset),
-            login.trailingAnchor.constraint(equalTo: chevron.leadingAnchor, constant: -Paddings.Labels.rightInset),
+            login.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: Layout.Labels.leftInset),
+            login.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Layout.Labels.verticalInset),
+            login.trailingAnchor.constraint(equalTo: chevron.leadingAnchor, constant: -Layout.Labels.rightInset),
             
-            id.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: Paddings.Labels.leftInset),
-            id.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Paddings.Labels.verticalInset),
-            id.trailingAnchor.constraint(equalTo: chevron.leadingAnchor, constant: -Paddings.Labels.rightInset),
+            id.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: Layout.Labels.leftInset),
+            id.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Layout.Labels.verticalInset),
+            id.trailingAnchor.constraint(equalTo: chevron.leadingAnchor, constant: -Layout.Labels.rightInset),
             
             chevron.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            chevron.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Paddings.Chevron.horizontalInset),
-            chevron.widthAnchor.constraint(equalToConstant: Paddings.Chevron.size)
+            chevron.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Layout.Chevron.horizontalInset),
+            chevron.widthAnchor.constraint(equalToConstant: Layout.Chevron.size)
         ])
     }
     
-    func configure(model: UsersModel) {
+//    MARK: -Configure
+    
+    func configure(model: User) {
         login.text = model.login
         id.text = String(model.id)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

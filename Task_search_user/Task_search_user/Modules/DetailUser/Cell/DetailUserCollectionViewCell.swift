@@ -2,33 +2,37 @@
 //  DetailUserCollectionViewCell.swift
 //  Task_search_user
 //
-//  Created by Поздняков Игорь Николаевич on 18.01.2022.
+//  Created by Татьяна Лузанова on 18.01.2022.
 //
 
 import UIKit
 
 class DetailUserCollectionViewCell: UICollectionViewCell {
     
-    private enum Paddings {
-    
+    private enum Layout {
         enum Labels {
             static let leftInset: CGFloat = 30
             static let rightInset: CGFloat = 10
             static let verticalInset: CGFloat = 10
+            static let size: CGFloat = 130
         }
     }
 
-    static let reusedId = "CollectionViewCell"
+    static let reusedId = "DetailUserCollectionViewCell"
     
     var containerView = UIView(frame: .zero)
     var labelValue = UILabel(frame: .zero)
     var labelData = UILabel(frame: .zero)
-    
-
+  
+//       MARK: -Setup UI
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupUIElements()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupUIElements() {
@@ -40,17 +44,12 @@ class DetailUserCollectionViewCell: UICollectionViewCell {
     
     func setupContainerView() {
         containerView.backgroundColor = UIColor.white
-//        containerView.layer.borderColor = UIColor.gray.cgColor
-//        containerView.layer.borderWidth = 1
-//        containerView.layer.shadowColor = UIColor.black.cgColor
-//        containerView.layer.cornerRadius = 20
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
     }
     
     func setupLabelValue() {
-        labelValue.text = "name:"
-        labelValue.font = UIFont(name: "Helvetica", size: 24)
+        labelValue.font = UIFont.systemFont(ofSize: 24)
         labelValue.tintColor = UIColor.black
         labelValue.numberOfLines = 0
         labelValue.translatesAutoresizingMaskIntoConstraints = false
@@ -58,8 +57,7 @@ class DetailUserCollectionViewCell: UICollectionViewCell {
     }
     
     func setupLabelData() {
-        labelData.text = "Vasya Pupkin"
-        labelData.font = UIFont(name: "Helvetica", size: 24)
+        labelData.font = UIFont.systemFont(ofSize: 24)
         labelData.tintColor = UIColor.black
         labelData.textAlignment = .left
         labelData.translatesAutoresizingMaskIntoConstraints = false
@@ -73,17 +71,14 @@ class DetailUserCollectionViewCell: UICollectionViewCell {
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            labelData.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Paddings.Labels.leftInset),
-            labelData.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Paddings.Labels.verticalInset),
+            labelData.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Layout.Labels.leftInset),
+            labelData.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Layout.Labels.verticalInset),
+            labelData.widthAnchor.constraint(equalToConstant: Layout.Labels.size),
             
-            labelValue.leadingAnchor.constraint(equalTo: labelData.trailingAnchor, constant: Paddings.Labels.rightInset),
-            labelValue.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Paddings.Labels.verticalInset),
-            labelValue.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Paddings.Labels.leftInset)
+            labelValue.leadingAnchor.constraint(equalTo: labelData.trailingAnchor, constant: Layout.Labels.rightInset),
+            labelValue.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Layout.Labels.verticalInset),
+            labelValue.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Layout.Labels.leftInset)
             
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    }    
 }

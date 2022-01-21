@@ -24,18 +24,22 @@ class DetailUserViewController: UIViewController {
         case name = 0, email, company, followers
     }
     
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+    private enum Titles {
+        static let name = "name:"
+        static let email = "email:"
+        static let company = "company:"
+        static let followers = "followers:"
+    }
+    
+    private let presenter: DetailUserViewOutput
+    
+    private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+
     
-    let networkService = DetailUserNetworkService()
-    var detailsearcResponce: DetailUserSearchResponse? = nil
-    var model: DetailUserModel = DetailUserModel(avatar: "", name: "", company: "", email: "", followers: 0)
-    
-    
-    let userName: String
-    
-    init(userName: String) {
-        self.userName = userName
+//    MARK: -Init
+    init(presenter: DetailUserViewOutput) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,6 +47,7 @@ class DetailUserViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+//    MARK: -Life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -50,27 +55,10 @@ class DetailUserViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateDataFromServer(request: userName)
+        presenter.updateDataFromServer()
     }
     
-    func updateDataFromServer(request: String) {
-        let urlString = "https://api.github.com/users/" + request
-        networkService.request(urlString: urlString) { [weak self] (result) in
-            switch result {
-            case .success(let searchResponse):
-                self?.detailsearcResponce = searchResponse
-                self?.collectionView.reloadData()
-                self?.model.avatar = searchResponse.avatar
-                self?.model.name = searchResponse.name
-                self?.model.company = searchResponse.company
-                self?.model.email = searchResponse.email
-                self?.model.followers = searchResponse.followers
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
+//    MARK: -Setup UI
     func setupUI() {
         view.backgroundColor = UIColor.white
         setupNavigationBar()
@@ -89,7 +77,6 @@ class DetailUserViewController: UIViewController {
         collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.delegate = self
         collectionView.dataSource = self
-        //        layout.minimumLineSpacing = 10
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 30, right: 0)
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,28 +91,12 @@ class DetailUserViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
-    func getImage(from string: String, completion:@escaping ((UIImage?) -> Void)) {
-        guard let url = URL(string: string)
-        else {
-            print("Unable to create URL")
-            completion(nil)
-            return
-        }
-        
-        DispatchQueue.global().async {
-            do {
-                let data = try Data(contentsOf: url, options: [])
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    completion(image)
-                }
-            }
-            catch {
-                print(error.localizedDescription)
-                completion(nil)
-            }
-        }
+}
+
+// MARK: -DetailUserViewInput
+extension DetailUserViewController: DetailUserViewInput {
+    func reloadUI() {
+        collectionView.reloadData()
     }
 }
 
@@ -150,18 +121,11 @@ extension DetailUserViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        //        cell.login.text = array[indexPath.row].login
-        //        cell.id.text = String(array[indexPath.row].id)
-        //        let string = array[indexPath.row].avatar
-        //        let image = getImage(from: string, completion: { (image: UIImage?) in
-        //            cell.avatar.image = image
-        //        })
-        
+    
         if indexPath.section == DetailUserSection.avatar.rawValue {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailUserImageCollectionViewCell.reusedId, for: indexPath) as! DetailUserImageCollectionViewCell
-            let string = model.avatar
-            let image = getImage(from: string, completion: { (image: UIImage?) in
+            let string = presenter.getUserDetail().avatar
+            let image = presenter.getImage(from: string, completion: { (image: UIImage?) in
                 cell.avatar.image = image
             })
             return cell
@@ -171,17 +135,17 @@ extension DetailUserViewController: UICollectionViewDataSource {
                 switch currentCell {
                     
                 case .name:
-                    cell.labelData.text = "name:"
-                    cell.labelValue.text = model.name
+                    cell.labelData.text = Titles.name
+                    cell.labelValue.text = presenter.getUserDetail().name
                 case .company:
-                    cell.labelData.text = "company:"
-                    cell.labelValue.text = model.company ?? ""
+                    cell.labelData.text = Titles.company
+                    cell.labelValue.text = presenter.getUserDetail().company
                 case .email:
-                    cell.labelData.text = "email:"
-                    cell.labelValue.text = model.email ?? ""
+                    cell.labelData.text = Titles.email
+                    cell.labelValue.text = presenter.getUserDetail().email
                 case .followers:
-                    cell.labelData.text = "followers:"
-                    cell.labelValue.text = String(model.followers)
+                    cell.labelData.text = Titles.followers
+                    cell.labelValue.text = String(presenter.getUserDetail().followers)
                 }
             }
             return cell
@@ -200,7 +164,7 @@ extension DetailUserViewController: UICollectionViewDelegateFlowLayout {
                 heightOfRow = CGSize(width: view.frame.width, height: 300)
             case .otherInformation:
                 
-                heightOfRow = CGSize(width: view.frame.width, height: 50)
+                heightOfRow = CGSize(width: view.frame.width, height: 60)
             }
         }
         return heightOfRow
