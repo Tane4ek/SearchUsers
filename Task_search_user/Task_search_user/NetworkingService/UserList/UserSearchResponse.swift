@@ -8,26 +8,5 @@
 import Foundation
 
 struct UserSearchResponse: Decodable {
-    var items: [Users]
+    var items: [User]
 }
-
-//MARK: - Users
-extension UserSearchResponse {
-    struct Users: Decodable {
-        var login: String
-        var id: Int
-        var avatar: String
-        var repositories: String
-        var followers: String
-        var joined: String
-        
-        enum CodingKeys: String, CodingKey {
-            case login, id
-            case avatar = "avatar_url"
-            case repositories = "repos_url"
-            case followers = "followers_url"
-            case joined = "following_url"
-        }
-    }
-}
-
