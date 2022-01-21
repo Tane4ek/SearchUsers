@@ -13,6 +13,7 @@ class DetailUserViewController: UIViewController {
         
         enum CollectionView {
             static let topInset: CGFloat = 30
+            static let insideInset: CGFloat = 10
         }
     }
     
@@ -77,7 +78,7 @@ class DetailUserViewController: UIViewController {
         collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 30, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: Paddings.CollectionView.insideInset, left: 0, bottom: Paddings.CollectionView.insideInset, right: 0)
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -163,7 +164,27 @@ extension DetailUserViewController: UICollectionViewDelegateFlowLayout {
             case .avatar:
                 heightOfRow = CGSize(width: view.frame.width, height: 300)
             case .otherInformation:
-                heightOfRow = CGSize(width: view.frame.width, height: 60)
+//                if let currentNumberOfRow = OtherInformationSection(rawValue: indexPath.section) {
+//                    switch currentNumberOfRow {
+//
+//                    case .name:
+//                        heightOfRow = CGSize(width: view.frame.width, height: 60)
+//                    case .email:
+//                        if presenter.getUserDetail().email == "" {
+//                            heightOfRow = CGSize(width: view.frame.width, height: 0)
+//                        } else {
+//                            heightOfRow = CGSize(width: view.frame.width, height: 60)
+//                        }
+//                    case .company:
+//                        if presenter.getUserDetail().company == "" {
+//                            heightOfRow = CGSize(width: view.frame.width, height: 0)
+//                        } else {
+//                            heightOfRow = CGSize(width: view.frame.width, height: 60)
+//                        }
+//                    case .followers:
+                        heightOfRow = CGSize(width: view.frame.width, height: 60)
+//                    }
+//                }
             }
         }
         return heightOfRow
