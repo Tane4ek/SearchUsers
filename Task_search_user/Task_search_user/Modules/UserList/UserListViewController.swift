@@ -56,7 +56,8 @@ class UserListViewController: UIViewController {
     
     private var userRequest: String = ""
     
-    private var fetchingMore = false
+    private var page = 2
+    private var fetchingMoreUsers = false
     
 //      MARK: -Init
     init(presenter: UserListViewOutput) {
@@ -130,6 +131,7 @@ class UserListViewController: UIViewController {
         segmentedControl.setWidth(90, forSegmentAt: 1)
         segmentedControl.setWidth(80, forSegmentAt: 2)
         segmentedControl.addTarget(self, action: #selector(selectedValue), for: .valueChanged)
+        
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(segmentedControl)
     }
@@ -211,7 +213,9 @@ class UserListViewController: UIViewController {
     
     @objc func buttonSearchTapped(_ sender: UIButton) {
         view.endEditing(true)
+        page = 2
         presenter.buttonSearchTapped(text: userRequest)
+        segmentedControl.selectedSegmentIndex = UISegmentedControl.noSegment
     }
     
     private func registerForKeyboardNotification() {
@@ -220,19 +224,27 @@ class UserListViewController: UIViewController {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHight = scrollView.contentSize.height
-        
-        if offsetY > contentHight - scrollView.frame.height {
-            if !fetchingMore {
-                addMoreUsers(index: 2)
+
+        if collectionView.isHidden == false {
+            let currentOffset = scrollView.contentOffset.y
+        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let detailOffset = maxOffset - currentOffset
+
+        if detailOffset <= 0 {
+                print("scroll to bottom")
+                addMoreUsers()
             }
         }
     }
     
-    func addMoreUsers(index: Int) {
-        fetchingMore = true
-        presenter.getMoreUsers(text: userRequest, index: index)
+    func addMoreUsers() {
+        if (!fetchingMoreUsers) {
+            fetchingMoreUsers = true
+            presenter.getMoreUsers(text: userRequest, index: page)
+            page += 1
+            fetchingMoreUsers = false
+        }
+        
     }
 }
 
@@ -255,7 +267,6 @@ extension UserListViewController: UserListViewInput {
 extension UserListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectRowAt(index: indexPath.row)
-        
     }
 }
 
@@ -270,7 +281,8 @@ extension UserListViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCollectionViewCell.reusedId, for: indexPath) as! UserCollectionViewCell
         let modelOfIndex = presenter.modelOfIndex(index: indexPath.row)
         cell.configure(model: modelOfIndex)
-        let image = presenter.getImage(from: indexPath.row, completion: { (image: UIImage?) in
+        cell.prepareForReuse()
+        let _ = presenter.getImage(from: indexPath.row, completion: { (image: UIImage?) in
             cell.avatar.image = image })
         return cell
     }

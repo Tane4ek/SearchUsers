@@ -121,4 +121,9 @@ class UserCollectionViewCell: UICollectionViewCell {
         login.text = model.login
         id.text = String(model.id)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatar.image = UIImage()
+    }
 }

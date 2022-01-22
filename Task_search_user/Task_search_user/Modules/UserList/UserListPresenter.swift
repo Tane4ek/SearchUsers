@@ -15,6 +15,7 @@ class UserListPresenter {
     var userNetworkingServise = UserNetworkService()
     var userSearchResponce: UserSearchResponse?
     var models: [User] = []
+
 }
 
 extension UserListPresenter: UserListViewOutput {
@@ -24,11 +25,12 @@ extension UserListPresenter: UserListViewOutput {
     
     func buttonSearchTapped(text: String) {
         if text != "" {
-            let urlString = "https://api.github.com/search/users?q=" + text + "page:2"
+            let urlString = "https://api.github.com/search/users?q=" + text
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
                 case .success(let searchResponse):
                     self?.userSearchResponce = searchResponse
+                    self?.models = []
                     self?.models = searchResponse.items.map{
                         User(login: $0.login, id: $0.id, avatar: $0.avatar)
                     }
@@ -101,23 +103,40 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func getMoreUsers(text: String, index: Int) {
-        
-        if models.count != 0 {
-            print("loading more users")
-            let urlString = "https://api.github.com/search/users?q=" + text + "page:" + String(index)
+        print("loading more users")
+        if models.count % 30 == 0 {
+            let urlString = "https://api.github.com/search/users?q=" + text + "&page=" + String(index)
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
                 case .success(let searchResponse):
                     self?.userSearchResponce = searchResponse
-                    let moreUsers = searchResponse.items.map{
+                    var moreUsers = searchResponse.items.map{
                         User(login: $0.login, id: $0.id, avatar: $0.avatar)
                     }
                     self?.models += moreUsers
+                    moreUsers = []
                     self?.view?.reloadUI()
                 case .failure(let error):
                     print(error)
                 }
             }
+        } else {
+            print("Больше пользователей нет")
+            return
         }
     }
 }
+
+//let imageCache = NSCache<AnyObject, AnyObject>()
+//
+//extension UIImageView {
+//    func loadImage(urlString: String) {
+//        guard let url = URL(string: urlString) else { return }
+//        image = nil
+//        
+//        if let imageFromCahce = imageCache.object(forKey: urlString as AnyObject) {
+//            image = imageFromCahce as? UIImage
+//            return
+//        }
+//    }
+//}
