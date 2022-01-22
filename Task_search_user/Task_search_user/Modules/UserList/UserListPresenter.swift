@@ -15,6 +15,8 @@ class UserListPresenter {
     var userNetworkingServise = UserNetworkService()
     var userSearchResponce: UserSearchResponse?
     var models: [User] = []
+    var searchText = String()
+    var pageNumber = 0
 
 }
 
@@ -24,8 +26,10 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func buttonSearchTapped(text: String) {
-        if text != "" {
-            let urlString = "https://api.github.com/search/users?q=" + text
+        pageNumber = 0
+        self.searchText = text
+        if searchText != "" {
+            let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
                 case .success(let searchResponse):
@@ -46,8 +50,8 @@ extension UserListPresenter: UserListViewOutput {
         }
     }
     
-    func segmentControledTapped(text: String, sort: String) {
-        let urlString = "https://api.github.com/search/users?q=" + text + "sort:" + sort
+    func segmentControledTapped(sort: String) {
+        let urlString = "https://api.github.com/search/users?q=" + searchText + "sort:" + sort
         userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
             switch result {
             case .success(let searchResponse):
@@ -102,10 +106,11 @@ extension UserListPresenter: UserListViewOutput {
         }
     }
     
-    func getMoreUsers(text: String, index: Int) {
+    func loadNextPage() {
+        pageNumber += 1
         print("loading more users")
         if models.count % 30 == 0 {
-            let urlString = "https://api.github.com/search/users?q=" + text + "&page=" + String(index)
+            let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
                 case .success(let searchResponse):
@@ -126,17 +131,3 @@ extension UserListPresenter: UserListViewOutput {
         }
     }
 }
-
-//let imageCache = NSCache<AnyObject, AnyObject>()
-//
-//extension UIImageView {
-//    func loadImage(urlString: String) {
-//        guard let url = URL(string: urlString) else { return }
-//        image = nil
-//        
-//        if let imageFromCahce = imageCache.object(forKey: urlString as AnyObject) {
-//            image = imageFromCahce as? UIImage
-//            return
-//        }
-//    }
-//}

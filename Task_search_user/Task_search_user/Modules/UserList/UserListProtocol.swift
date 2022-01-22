@@ -18,7 +18,7 @@ protocol UserListViewOutput: AnyObject {
     
     func buttonSearchTapped(text: String)
     
-    func segmentControledTapped(text: String, sort: String)
+    func segmentControledTapped(sort: String)
     
     func didSelectRowAt(index: Int)
     
@@ -30,5 +30,5 @@ protocol UserListViewOutput: AnyObject {
     
     func getImage(from index: Int, completion:@escaping ((UIImage?) -> Void))
     
-    func getMoreUsers(text: String, index: Int)
+    func loadNextPage()
 }
