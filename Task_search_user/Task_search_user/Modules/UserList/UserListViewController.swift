@@ -56,6 +56,8 @@ class UserListViewController: UIViewController {
     
     private var userRequest: String = ""
     
+    private var fetchingMore = false
+    
 //      MARK: -Init
     init(presenter: UserListViewOutput) {
         self.presenter = presenter
@@ -216,6 +218,22 @@ class UserListViewController: UIViewController {
         self.registerForKeyboardWillShowNotification(self.collectionView)
         self.registerForKeyboardWillHideNotification(self.collectionView)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHight = scrollView.contentSize.height
+        
+        if offsetY > contentHight - scrollView.frame.height {
+            if !fetchingMore {
+                addMoreUsers(index: 2)
+            }
+        }
+    }
+    
+    func addMoreUsers(index: Int) {
+        fetchingMore = true
+        presenter.getMoreUsers(text: userRequest, index: index)
+    }
 }
 
 // MARK: -UserListViewInput
@@ -252,8 +270,7 @@ extension UserListViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCollectionViewCell.reusedId, for: indexPath) as! UserCollectionViewCell
         let modelOfIndex = presenter.modelOfIndex(index: indexPath.row)
         cell.configure(model: modelOfIndex)
-        let string = presenter.modelOfIndex(index: indexPath.row).avatar
-        let image = presenter.getImage(from: string, completion: { (image: UIImage?) in
+        let image = presenter.getImage(from: indexPath.row, completion: { (image: UIImage?) in
             cell.avatar.image = image })
         return cell
     }
@@ -285,7 +302,7 @@ extension UserListViewController: UITextFieldDelegate {
     }
 }
 
-//MARK: - registerForKeyboardNotification
+//      MARK: - registerForKeyboardNotification
 extension UserListViewController {
     func registerForKeyboardWillShowNotification(_ scrollView: UIScrollView, usingBlock block: ((CGSize?) -> Void)? = nil) {
         _ = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil, using: { notification -> Void in
@@ -302,6 +319,7 @@ extension UserListViewController {
     }
 }
 
+//      MARK: -ScrollView
 extension UIScrollView {
     func setContentInsetAndScrollIndicatorInsets(_ edgeInsets: UIEdgeInsets) {
         self.contentInset = edgeInsets

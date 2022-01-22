@@ -24,7 +24,7 @@ extension UserListPresenter: UserListViewOutput {
     
     func buttonSearchTapped(text: String) {
         if text != "" {
-            let urlString = "https://api.github.com/search/users?q=" + text
+            let urlString = "https://api.github.com/search/users?q=" + text + "page:2"
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
                 case .success(let searchResponse):
@@ -77,8 +77,8 @@ extension UserListPresenter: UserListViewOutput {
         return models[index]
     }
     
-    func getImage(from string: String, completion:@escaping ((UIImage?) -> Void)) {
-        guard let url = URL(string: string)
+    func getImage(from index: Int, completion:@escaping ((UIImage?) -> Void)) {
+        guard let url = URL(string: models[index].avatar)
         else {
             print("Unable to create URL")
             completion(nil)
@@ -96,6 +96,27 @@ extension UserListPresenter: UserListViewOutput {
             catch {
                 print(error.localizedDescription)
                 completion(nil)
+            }
+        }
+    }
+    
+    func getMoreUsers(text: String, index: Int) {
+        
+        if models.count != 0 {
+            print("loading more users")
+            let urlString = "https://api.github.com/search/users?q=" + text + "page:" + String(index)
+            userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
+                switch result {
+                case .success(let searchResponse):
+                    self?.userSearchResponce = searchResponse
+                    let moreUsers = searchResponse.items.map{
+                        User(login: $0.login, id: $0.id, avatar: $0.avatar)
+                    }
+                    self?.models += moreUsers
+                    self?.view?.reloadUI()
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }

@@ -28,5 +28,7 @@ protocol UserListViewOutput: AnyObject {
     
     func modelOfIndex(index: Int) -> User
     
-    func getImage(from string: String, completion:@escaping ((UIImage?) -> Void))
+    func getImage(from index: Int, completion:@escaping ((UIImage?) -> Void))
+    
+    func getMoreUsers(text: String, index: Int)
 }
