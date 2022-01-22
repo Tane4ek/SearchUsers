@@ -227,7 +227,7 @@ class UserListViewController: UIViewController {
         let detailOffset = maxOffset - currentOffset
 
         if detailOffset <= 0 {
-                print("scroll to bottom")
+//                print("scroll to bottom")
 //                addMoreUsers()
             }
         }
@@ -279,6 +279,9 @@ extension UserListViewController: UICollectionViewDataSource {
         let _ = presenter.getImage(from: indexPath.row, completion: { (image: UIImage?) in
             if cell.index == indexPath.row {
                 cell.avatar.image = image }})
+        if indexPath.row == presenter.numberOfItems() - 1 {
+            presenter.loadNextPage()
+        }
         return cell
     }
 }

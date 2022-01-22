@@ -17,7 +17,6 @@ class UserListPresenter {
     var models: [User] = []
     var searchText = String()
     var pageNumber = 0
-
 }
 
 extension UserListPresenter: UserListViewOutput {
@@ -39,6 +38,7 @@ extension UserListPresenter: UserListViewOutput {
                         User(login: $0.login, id: $0.id, avatar: $0.avatar)
                     }
                     self?.view?.reloadUI()
+                    self?.pageNumber += 1
                 case .failure(let error):
                     print(error)
                 }
@@ -107,7 +107,6 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func loadNextPage() {
-        pageNumber += 1
         print("loading more users")
         if models.count % 30 == 0 {
             let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
@@ -120,6 +119,7 @@ extension UserListPresenter: UserListViewOutput {
                     }
                     self?.models += moreUsers
                     moreUsers = []
+                    self?.pageNumber += 1
                     self?.view?.reloadUI()
                 case .failure(let error):
                     print(error)
