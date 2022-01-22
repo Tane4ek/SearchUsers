@@ -53,10 +53,7 @@ class UserListViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
         return refreshControl
     }()
-    
-    private var userRequest: String = ""
-    
-    private var page = 2
+
     private var fetchingMoreUsers = false
     
 //      MARK: -Init
@@ -194,11 +191,11 @@ class UserListViewController: UIViewController {
         if presenter.numberOfItems() != 0 {
             if target == self.segmentedControl {
                 if target.selectedSegmentIndex == 0 {
-                    presenter.segmentControledTapped(text: userRequest, sort: "followers")
+                    presenter.segmentControledTapped(sort: "followers")
                 } else if target.selectedSegmentIndex == 1 {
-                    presenter.segmentControledTapped(text: userRequest, sort: "repo")
+                    presenter.segmentControledTapped(sort: "repo")
                 } else {
-                    presenter.segmentControledTapped(text: userRequest, sort: "joned")
+                    presenter.segmentControledTapped(sort: "joned")
                 }
             }
         } else {
@@ -207,14 +204,13 @@ class UserListViewController: UIViewController {
     }
     
     @objc func pullToRefresh(sender: UIRefreshControl) {
-        presenter.buttonSearchTapped(text: userRequest)
+        presenter.buttonSearchTapped(text: textField.text ?? "")
         sender.endRefreshing()
     }
     
     @objc func buttonSearchTapped(_ sender: UIButton) {
         view.endEditing(true)
-        page = 2
-        presenter.buttonSearchTapped(text: userRequest)
+        presenter.buttonSearchTapped(text: textField.text ?? "")
         segmentedControl.selectedSegmentIndex = UISegmentedControl.noSegment
     }
     
@@ -232,7 +228,7 @@ class UserListViewController: UIViewController {
 
         if detailOffset <= 0 {
                 print("scroll to bottom")
-                addMoreUsers()
+//                addMoreUsers()
             }
         }
     }
@@ -240,8 +236,7 @@ class UserListViewController: UIViewController {
     func addMoreUsers() {
         if (!fetchingMoreUsers) {
             fetchingMoreUsers = true
-            presenter.getMoreUsers(text: userRequest, index: page)
-            page += 1
+            presenter.loadNextPage()
             fetchingMoreUsers = false
         }
         
@@ -280,10 +275,10 @@ extension UserListViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserCollectionViewCell.reusedId, for: indexPath) as! UserCollectionViewCell
         let modelOfIndex = presenter.modelOfIndex(index: indexPath.row)
-        cell.configure(model: modelOfIndex)
-        cell.prepareForReuse()
+        cell.configure(model: modelOfIndex, indexPath: indexPath.row)
         let _ = presenter.getImage(from: indexPath.row, completion: { (image: UIImage?) in
-            cell.avatar.image = image })
+            if cell.index == indexPath.row {
+                cell.avatar.image = image }})
         return cell
     }
 }
@@ -307,8 +302,7 @@ extension UserListViewController: UITextFieldDelegate {
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        userRequest = updatedText
+        _ = currentText.replacingCharacters(in: stringRange, with: string)
         
         return true
     }
