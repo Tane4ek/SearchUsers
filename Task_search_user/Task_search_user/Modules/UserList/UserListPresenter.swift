@@ -16,7 +16,7 @@ class UserListPresenter {
     var userSearchResponce: UserSearchResponse?
     var models: [User] = []
     var searchText = String()
-    var pageNumber = 0
+    var pageNumber = Int()
     var isLoading = false
 }
 
@@ -26,7 +26,7 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func buttonSearchTapped(text: String) {
-        pageNumber = 0
+        pageNumber = 1
         self.searchText = text
         if searchText != "" {
             let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
@@ -128,6 +128,8 @@ extension UserListPresenter: UserListViewOutput {
                     print(error)
                 }
             }
+        } else {
+            print("загрузка не завершена")
         }
     }
 }
