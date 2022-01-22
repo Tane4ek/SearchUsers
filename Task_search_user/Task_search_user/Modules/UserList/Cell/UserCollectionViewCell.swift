@@ -33,6 +33,7 @@ class UserCollectionViewCell: UICollectionViewCell {
     private var id = UILabel(frame: .zero)
     private var login = UILabel()
     private var chevron = UIImageView(frame: .zero)
+    var index = Int()
 
 //    MARK: -Setup
     
@@ -117,8 +118,14 @@ class UserCollectionViewCell: UICollectionViewCell {
     
 //    MARK: -Configure
     
-    func configure(model: User) {
+    func configure(model: User, indexPath: Int) {
         login.text = model.login
         id.text = String(model.id)
+        index = indexPath
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatar.image = UIImage()
     }
 }
