@@ -17,6 +17,7 @@ class UserListPresenter {
     var models: [User] = []
     var searchText = String()
     var pageNumber = 0
+    var isLoading = false
 }
 
 extension UserListPresenter: UserListViewOutput {
@@ -108,7 +109,8 @@ extension UserListPresenter: UserListViewOutput {
     
     func loadNextPage() {
         print("loading more users")
-        if models.count % 30 == 0 {
+        if !isLoading {
+            isLoading = true
             let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
@@ -121,13 +123,11 @@ extension UserListPresenter: UserListViewOutput {
                     moreUsers = []
                     self?.pageNumber += 1
                     self?.view?.reloadUI()
+                    self?.isLoading = false
                 case .failure(let error):
                     print(error)
                 }
             }
-        } else {
-            print("Больше пользователей нет")
-            return
         }
     }
 }
