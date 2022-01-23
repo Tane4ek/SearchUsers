@@ -126,7 +126,7 @@ extension DetailUserViewController: UICollectionViewDataSource {
         if indexPath.section == DetailUserSection.avatar.rawValue {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailUserImageCollectionViewCell.reusedId, for: indexPath) as! DetailUserImageCollectionViewCell
             let string = presenter.getUserDetail().avatar
-            let image = presenter.getImage(from: string, completion: { (image: UIImage?) in
+            _ = presenter.getImage(from: string, completion: { (image: UIImage?) in
                 cell.avatar.image = image
             })
             return cell
