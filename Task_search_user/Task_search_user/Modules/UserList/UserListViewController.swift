@@ -54,8 +54,6 @@ class UserListViewController: UIViewController {
         return refreshControl
     }()
 
-    private var fetchingMoreUsers = false
-    
 //      MARK: -Init
     init(presenter: UserListViewOutput) {
         self.presenter = presenter
@@ -219,28 +217,28 @@ class UserListViewController: UIViewController {
         self.registerForKeyboardWillHideNotification(self.collectionView)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        if collectionView.isHidden == false {
-            let currentOffset = scrollView.contentOffset.y
-        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let detailOffset = maxOffset - currentOffset
-
-        if detailOffset <= 0 {
-//                print("scroll to bottom")
-//                addMoreUsers()
-            }
-        }
-    }
-    
-    func addMoreUsers() {
-        if (!fetchingMoreUsers) {
-            fetchingMoreUsers = true
-            presenter.loadNextPage()
-            fetchingMoreUsers = false
-        }
-        
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//
+//        if collectionView.isHidden == false {
+//            let currentOffset = scrollView.contentOffset.y
+//        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+//        let detailOffset = maxOffset - currentOffset
+//
+//        if detailOffset <= 0 {
+////                print("scroll to bottom")
+////                addMoreUsers()
+//            }
+//        }
+//    }
+//
+//    func addMoreUsers() {
+//        if (!fetchingMoreUsers) {
+//            fetchingMoreUsers = true
+//            presenter.loadNextPage()
+//            fetchingMoreUsers = false
+//        }
+//
+//    }
 }
 
 // MARK: -UserListViewInput

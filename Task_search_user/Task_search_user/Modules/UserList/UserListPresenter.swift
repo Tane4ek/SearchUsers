@@ -18,6 +18,7 @@ class UserListPresenter {
     var searchText = String()
     var pageNumber = Int()
     var isLoading = false
+    var sortOption = String()
 }
 
 extension UserListPresenter: UserListViewOutput {
@@ -27,19 +28,21 @@ extension UserListPresenter: UserListViewOutput {
     
     func buttonSearchTapped(text: String) {
         pageNumber = 1
-        self.searchText = text
+        sortOption = ""
+        searchText = text
+        models = []
         if searchText != "" {
             let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
+            print("button tapped: \(urlString)", pageNumber)
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
                 case .success(let searchResponse):
                     self?.userSearchResponce = searchResponse
-                    self?.models = []
+        
                     self?.models = searchResponse.items.map{
                         User(login: $0.login, id: $0.id, avatar: $0.avatar)
                     }
                     self?.view?.reloadUI()
-                    self?.pageNumber += 1
                 case .failure(let error):
                     print(error)
                 }
@@ -52,7 +55,10 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func segmentControledTapped(sort: String) {
-        let urlString = "https://api.github.com/search/users?q=" + searchText + "sort:" + sort
+        sortOption = "+sort:" + sort
+        pageNumber = 1
+        let urlString = "https://api.github.com/search/users?q=" + searchText + sortOption + "&page=" + String(pageNumber)
+        print("sermentControl: \(urlString)", pageNumber)
         userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
             switch result {
             case .success(let searchResponse):
@@ -108,10 +114,11 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func loadNextPage() {
-        print("loading more users")
         if !isLoading {
             isLoading = true
-            let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
+            pageNumber += 1
+            let urlString = "https://api.github.com/search/users?q=" + searchText + sortOption + "&page=" + String(pageNumber)
+            print("load next page: \(urlString)", pageNumber)
             userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
                 switch result {
                 case .success(let searchResponse):
