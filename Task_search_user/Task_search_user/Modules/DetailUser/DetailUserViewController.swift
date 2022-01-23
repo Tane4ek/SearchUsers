@@ -51,19 +51,17 @@ class DetailUserViewController: UIViewController {
 //    MARK: -Life circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("имя с контроллера", presenter.getUserDetail().name)
         setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.updateDataFromServer()
-//        presenter.viewWillAppear()
+        presenter.viewWillAppear()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        presenter.updateDataFromServer()
+        presenter.updateDataFromServer()
     }
     
 //    MARK: -Setup UI
@@ -144,7 +142,7 @@ extension DetailUserViewController: UICollectionViewDataSource {
                     
                 case .name:
                     cell.labelData.text = Titles.name
-                    cell.labelValue.text = presenter.getUserDetail().name ?? ""
+                    cell.labelValue.text = presenter.getUserDetail().name
                 case .company:
                     cell.labelData.text = Titles.company
                     cell.labelValue.text = presenter.getUserDetail().company
@@ -171,27 +169,7 @@ extension DetailUserViewController: UICollectionViewDelegateFlowLayout {
             case .avatar:
                 heightOfRow = CGSize(width: view.frame.width, height: 300)
             case .otherInformation:
-//                if let currentNumberOfRow = OtherInformationSection(rawValue: indexPath.section) {
-//                    switch currentNumberOfRow {
-//
-//                    case .name:
-//                        heightOfRow = CGSize(width: view.frame.width, height: 60)
-//                    case .email:
-//                        if presenter.getUserDetail().email == "" {
-//                            heightOfRow = CGSize(width: view.frame.width, height: 0)
-//                        } else {
-//                            heightOfRow = CGSize(width: view.frame.width, height: 60)
-//                        }
-//                    case .company:
-//                        if presenter.getUserDetail().company == "" {
-//                            heightOfRow = CGSize(width: view.frame.width, height: 0)
-//                        } else {
-//                            heightOfRow = CGSize(width: view.frame.width, height: 60)
-//                        }
-//                    case .followers:
                         heightOfRow = CGSize(width: view.frame.width, height: 60)
-//                    }
-//                }
             }
         }
         return heightOfRow

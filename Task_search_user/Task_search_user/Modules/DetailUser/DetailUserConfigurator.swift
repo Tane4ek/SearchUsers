@@ -2,7 +2,7 @@
 //  DetailUserConfigurator.swift
 //  Task_search_user
 //
-//  Created by Поздняков Игорь Николаевич on 21.01.2022.
+//  Created by Татьяна Лузанова on 21.01.2022.
 //
 
 import Foundation

@@ -13,12 +13,14 @@ struct UserDetail: Decodable {
     let company: String?
     let email: String?
     let followers: Int?
+    let login: String
     
     enum CodingKeys: String, CodingKey {
         case name
         case company
         case email
         case followers
+        case login
         case avatar = "avatar_url"
     }
 }

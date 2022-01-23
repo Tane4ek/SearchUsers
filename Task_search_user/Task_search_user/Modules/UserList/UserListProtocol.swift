@@ -31,6 +31,4 @@ protocol UserListViewOutput: AnyObject {
     func getImage(from index: Int, completion:@escaping ((UIImage?) -> Void))
     
     func loadNextPage()
-    
-    func loadPage(isNextPage: Bool)
 }

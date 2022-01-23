@@ -64,7 +64,7 @@ extension DetailUserPresenter: DetailUserViewOutput {
     }
     
     func getUserDetail() -> UserDetail {
-        let userDetails = detailUserSearchResponce ?? UserDetail(avatar: "", name: "", company: "", email: "", followers: 0)
+        let userDetails = detailUserSearchResponce ?? UserDetail(avatar: "", name: "", company: "", email: "", followers: 0, login: "")
         return userDetails
     }
 }
