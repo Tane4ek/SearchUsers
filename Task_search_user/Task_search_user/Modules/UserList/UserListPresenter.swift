@@ -20,6 +20,12 @@ class UserListPresenter {
     var isLoading = false
     var sortOption = String()
     var totalCount = Int()
+    
+    enum SortedType {
+        case followers
+        case repositories
+        case joined
+    }
 }
 
 extension UserListPresenter: UserListViewOutput {
@@ -45,6 +51,7 @@ extension UserListPresenter: UserListViewOutput {
     func segmentControledTapped(sort: String) {
         sortOption = "+sort:" + sort
         pageNumber = 1
+        models = []
         loadPage(isNextPage: true)
     }
     
@@ -102,7 +109,7 @@ extension UserListPresenter: UserListViewOutput {
     }
     
     func loadPage(isNextPage: Bool) {
-        let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
+        let urlString = "https://api.github.com/search/users?q=" + searchText + sortOption + "&page=" + String(pageNumber)
         print("button tapped: \(urlString)", pageNumber)
         userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
             switch result {

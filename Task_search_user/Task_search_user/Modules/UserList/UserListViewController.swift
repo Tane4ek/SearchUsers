@@ -195,11 +195,11 @@ class UserListViewController: UIViewController {
         if presenter.numberOfItems() != 0 {
             if target == self.segmentedControl {
                 if target.selectedSegmentIndex == 0 {
-                    presenter.segmentControledTapped(sort: SortedType.followers)
+                    presenter.segmentControledTapped(sort:SortedType.followers)
                 } else if target.selectedSegmentIndex == 1 {
-                    presenter.segmentControledTapped(sort: SortedType.repositories)
+                    presenter.segmentControledTapped(sort:SortedType.repositories)
                 } else {
-                    presenter.segmentControledTapped(sort: SortedType.joined)
+                    presenter.segmentControledTapped(sort:SortedType.joined)
                 }
             }
         } else {

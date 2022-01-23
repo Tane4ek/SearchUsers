@@ -55,9 +55,15 @@ class DetailUserViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.updateDataFromServer()
+//        presenter.viewWillAppear()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        presenter.updateDataFromServer()
+//        presenter.updateDataFromServer()
     }
     
 //    MARK: -Setup UI
