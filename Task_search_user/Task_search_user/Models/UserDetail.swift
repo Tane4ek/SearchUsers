@@ -9,10 +9,10 @@ import Foundation
 
 struct UserDetail: Decodable {
     let avatar: String
-    let name: String
+    let name: String?
     let company: String?
     let email: String?
-    let followers: Int
+    let followers: Int?
     
     enum CodingKeys: String, CodingKey {
         case name

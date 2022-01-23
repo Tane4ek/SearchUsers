@@ -51,6 +51,7 @@ class DetailUserViewController: UIViewController {
 //    MARK: -Life circle
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("имя с контроллера", presenter.getUserDetail().name)
         setupUI()
     }
     
@@ -137,7 +138,7 @@ extension DetailUserViewController: UICollectionViewDataSource {
                     
                 case .name:
                     cell.labelData.text = Titles.name
-                    cell.labelValue.text = presenter.getUserDetail().name
+                    cell.labelValue.text = presenter.getUserDetail().name ?? ""
                 case .company:
                     cell.labelData.text = Titles.company
                     cell.labelValue.text = presenter.getUserDetail().company
@@ -146,7 +147,7 @@ extension DetailUserViewController: UICollectionViewDataSource {
                     cell.labelValue.text = presenter.getUserDetail().email
                 case .followers:
                     cell.labelData.text = Titles.followers
-                    cell.labelValue.text = String(presenter.getUserDetail().followers)
+                    cell.labelValue.text = String(presenter.getUserDetail().followers ?? 0)
                 }
             }
             return cell

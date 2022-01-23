@@ -8,5 +8,11 @@
 import Foundation
 
 struct UserSearchResponse: Decodable {
+    var totalCount: Int
     var items: [User]
+    
+    enum CodingKeys: String, CodingKey {
+        case totalCount = "total_count"
+        case items
+    }
 }

@@ -19,9 +19,11 @@ class UserListPresenter {
     var pageNumber = Int()
     var isLoading = false
     var sortOption = String()
+    var totalCount = Int()
 }
 
 extension UserListPresenter: UserListViewOutput {
+    
     func viewWillAppear() {
         view?.reloadUI()
     }
@@ -32,21 +34,7 @@ extension UserListPresenter: UserListViewOutput {
         searchText = text
         models = []
         if searchText != "" {
-            let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
-            print("button tapped: \(urlString)", pageNumber)
-            userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
-                switch result {
-                case .success(let searchResponse):
-                    self?.userSearchResponce = searchResponse
-        
-                    self?.models = searchResponse.items.map{
-                        User(login: $0.login, id: $0.id, avatar: $0.avatar)
-                    }
-                    self?.view?.reloadUI()
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            loadPage(isNextPage: true)
         } else {
             router?.showAlert()
             models = []
@@ -57,24 +45,12 @@ extension UserListPresenter: UserListViewOutput {
     func segmentControledTapped(sort: String) {
         sortOption = "+sort:" + sort
         pageNumber = 1
-        let urlString = "https://api.github.com/search/users?q=" + searchText + sortOption + "&page=" + String(pageNumber)
-        print("sermentControl: \(urlString)", pageNumber)
-        userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
-            switch result {
-            case .success(let searchResponse):
-                self?.userSearchResponce = searchResponse
-                self?.models = searchResponse.items.map{
-                    User(login: $0.login, id: $0.id, avatar: $0.avatar)
-                }
-                self?.view?.reloadUI()
-            case .failure(let error):
-                print(error)
-            }
-        }
+        loadPage(isNextPage: true)
     }
-  
+    
     func didSelectRowAt(index: Int) {
         let currentUser = models[index].login
+        print("currentUser is \(currentUser)")
         router?.showDetailUserModule(name: currentUser)
     }
     
@@ -115,28 +91,35 @@ extension UserListPresenter: UserListViewOutput {
     
     func loadNextPage() {
         if !isLoading {
-            isLoading = true
-            pageNumber += 1
-            let urlString = "https://api.github.com/search/users?q=" + searchText + sortOption + "&page=" + String(pageNumber)
-            print("load next page: \(urlString)", pageNumber)
-            userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
-                switch result {
-                case .success(let searchResponse):
-                    self?.userSearchResponce = searchResponse
-                    var moreUsers = searchResponse.items.map{
-                        User(login: $0.login, id: $0.id, avatar: $0.avatar)
-                    }
-                    self?.models += moreUsers
-                    moreUsers = []
-                    self?.pageNumber += 1
-                    self?.view?.reloadUI()
-                    self?.isLoading = false
-                case .failure(let error):
-                    print(error)
-                }
+            if totalCount > (models.count){
+                isLoading = true
+                pageNumber += 1
+                loadPage(isNextPage: true)
             }
         } else {
             print("загрузка не завершена")
+        }
+    }
+    
+    func loadPage(isNextPage: Bool) {
+        let urlString = "https://api.github.com/search/users?q=" + searchText + "&page=" + String(pageNumber)
+        print("button tapped: \(urlString)", pageNumber)
+        userNetworkingServise.request(urlString: urlString) { [weak self] (result) in
+            switch result {
+            case .success(let searchResponse):
+                self?.userSearchResponce = searchResponse
+                self?.totalCount = searchResponse.totalCount
+                var moreUsers = searchResponse.items.map{
+                    User(login: $0.login, id: $0.id, avatar: $0.avatar)
+                }
+                self?.models += moreUsers
+                moreUsers = []
+                self?.view?.reloadUI()
+                self?.isLoading = false
+            case .failure(let error):
+                self?.isLoading = false
+                print(error)
+            }
         }
     }
 }

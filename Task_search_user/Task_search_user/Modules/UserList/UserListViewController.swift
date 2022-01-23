@@ -36,6 +36,12 @@ class UserListViewController: UIViewController {
         static let noUsersLabelTitle = "No users"
     }
     
+    enum SortedType {
+        static let followers = "followers"
+        static let repositories = "repo"
+        static let joined = "joned"
+    }
+    
     private let presenter: UserListViewOutput
     
     private var textField = UITextField(frame: .zero)
@@ -189,11 +195,11 @@ class UserListViewController: UIViewController {
         if presenter.numberOfItems() != 0 {
             if target == self.segmentedControl {
                 if target.selectedSegmentIndex == 0 {
-                    presenter.segmentControledTapped(sort: "followers")
+                    presenter.segmentControledTapped(sort: SortedType.followers)
                 } else if target.selectedSegmentIndex == 1 {
-                    presenter.segmentControledTapped(sort: "repo")
+                    presenter.segmentControledTapped(sort: SortedType.repositories)
                 } else {
-                    presenter.segmentControledTapped(sort: "joned")
+                    presenter.segmentControledTapped(sort: SortedType.joined)
                 }
             }
         } else {
