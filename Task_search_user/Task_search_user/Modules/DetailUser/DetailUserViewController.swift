@@ -38,7 +38,7 @@ class DetailUserViewController: UIViewController {
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
 
     
-//    MARK: -Init
+//    MARK: - Init
     init(presenter: DetailUserViewOutput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -48,7 +48,7 @@ class DetailUserViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    MARK: -Life circle
+//    MARK: - Life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -64,19 +64,19 @@ class DetailUserViewController: UIViewController {
         presenter.updateDataFromServer()
     }
     
-//    MARK: -Setup UI
-    func setupUI() {
+//    MARK: - Setup UI
+    private func setupUI() {
         view.backgroundColor = UIColor.white
         setupNavigationBar()
         setupCollectionView()
         setupLayout()
     }
     
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = UIColor.black
     }
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         collectionView.register(DetailUserImageCollectionViewCell.self, forCellWithReuseIdentifier: DetailUserImageCollectionViewCell.reusedId)
         collectionView.register(DetailUserCollectionViewCell.self, forCellWithReuseIdentifier: DetailUserCollectionViewCell.reusedId)
         layout.scrollDirection = .vertical
@@ -88,7 +88,7 @@ class DetailUserViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         NSLayoutConstraint.activate([
             
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -99,7 +99,7 @@ class DetailUserViewController: UIViewController {
     }
 }
 
-// MARK: -DetailUserViewInput
+// MARK: - DetailUserViewInput
 extension DetailUserViewController: DetailUserViewInput {
     func reloadUI() {
         collectionView.reloadData()

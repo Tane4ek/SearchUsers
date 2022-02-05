@@ -24,7 +24,7 @@ class DetailUserCollectionViewCell: UICollectionViewCell {
     var labelValue = UILabel(frame: .zero)
     var labelData = UILabel(frame: .zero)
   
-//       MARK: -Setup UI
+//       MARK: - Setup UI
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -35,20 +35,20 @@ class DetailUserCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUIElements() {
+    private func setupUIElements() {
         setupContainerView()
         setupLabelValue()
         setupLabelData()
         setupLayoutUserCell()
     }
     
-    func setupContainerView() {
+    private func setupContainerView() {
         containerView.backgroundColor = UIColor.white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
     }
     
-    func setupLabelValue() {
+    private func setupLabelValue() {
         labelValue.font = UIFont.systemFont(ofSize: 24)
         labelValue.tintColor = UIColor.black
         labelValue.numberOfLines = 0
@@ -56,7 +56,7 @@ class DetailUserCollectionViewCell: UICollectionViewCell {
         containerView.addSubview(labelValue)
     }
     
-    func setupLabelData() {
+    private func setupLabelData() {
         labelData.font = UIFont.systemFont(ofSize: 24)
         labelData.tintColor = UIColor.black
         labelData.textAlignment = .left
@@ -64,7 +64,7 @@ class DetailUserCollectionViewCell: UICollectionViewCell {
         containerView.addSubview(labelData)
     }
     
-    func setupLayoutUserCell() {
+    private func setupLayoutUserCell() {
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.topAnchor.constraint(equalTo: topAnchor),

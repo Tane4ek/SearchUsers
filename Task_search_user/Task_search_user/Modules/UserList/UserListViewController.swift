@@ -60,7 +60,7 @@ class UserListViewController: UIViewController {
         return refreshControl
     }()
 
-//      MARK: -Init
+//      MARK: - Init
     init(presenter: UserListViewOutput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -71,7 +71,7 @@ class UserListViewController: UIViewController {
     }
     
     
-//      MARK: -Life circle
+//      MARK: - Life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -82,8 +82,8 @@ class UserListViewController: UIViewController {
         presenter.viewWillAppear()
     }
     
-//      MARK: -Setup UI
-    func setupUI() {
+//      MARK: - Setup UI
+     private func setupUI() {
         view.backgroundColor = UIColor.white
         setupNavigationBar()
         setupTextField()
@@ -94,12 +94,12 @@ class UserListViewController: UIViewController {
         setupLayout()
     }
     
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = UIColor.black
         title = Titles.navigationBarTitle
     }
     
-    func setupTextField() {
+    private func setupTextField() {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
         textField.placeholder = Titles.textFieldPlaceholder
@@ -113,7 +113,7 @@ class UserListViewController: UIViewController {
         view.addSubview(textField)
     }
     
-    func setupButtonSearch() {
+    private func setupButtonSearch() {
         buttonSearch.setTitle(Titles.buttonSearchTitle, for: .normal)
         buttonSearch.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         buttonSearch.setTitleColor(UIColor.black, for: .normal)
@@ -125,7 +125,7 @@ class UserListViewController: UIViewController {
         view.addSubview(buttonSearch)
     }
     
-    func setupSegmentControl() {
+    private func setupSegmentControl() {
         segmentedControl = UISegmentedControl(items: ["Followers", "Repositories", "Joined"])
         segmentedControl.layer.cornerRadius = 10
         segmentedControl.setWidth(80, forSegmentAt: 0)
@@ -137,14 +137,14 @@ class UserListViewController: UIViewController {
         view.addSubview(segmentedControl)
     }
     
-    func setupNoUsersLabel() {
+    private func setupNoUsersLabel() {
         noUsersLabel.text = Titles.noUsersLabelTitle
         noUsersLabel.font = UIFont.systemFont(ofSize: 24)
         noUsersLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(noUsersLabel)
     }
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         collectionView.isHidden = true
         collectionView.register(UserCollectionViewCell.self, forCellWithReuseIdentifier: UserCollectionViewCell.reusedId)
         layout.scrollDirection = .vertical
@@ -159,7 +159,7 @@ class UserListViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         NSLayoutConstraint.activate([
             buttonSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Paddings.ButtonSearch.verticalInset),
             buttonSearch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Paddings.ButtonSearch.horizontalInset),
@@ -224,7 +224,7 @@ class UserListViewController: UIViewController {
     }
 }
 
-// MARK: -UserListViewInput
+// MARK: - UserListViewInput
 extension UserListViewController: UserListViewInput {
     
     func reloadUI() {

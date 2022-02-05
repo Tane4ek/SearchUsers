@@ -35,7 +35,7 @@ class UserCollectionViewCell: UICollectionViewCell {
     private var chevron = UIImageView(frame: .zero)
     var index = Int()
 
-//    MARK: -Setup
+//    MARK: - Setup
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,7 +46,7 @@ class UserCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUIElements() {
+    private func setupUIElements() {
         setupContainerView()
         setupAvatar()
         setupLoginLabel()
@@ -55,7 +55,7 @@ class UserCollectionViewCell: UICollectionViewCell {
         setupLayoutUserCell()
     }
     
-    func setupContainerView() {
+    private func setupContainerView() {
         containerView.layer.borderColor = UIColor.black.cgColor
         containerView.layer.borderWidth = 1
         containerView.layer.cornerRadius = 20
@@ -63,34 +63,34 @@ class UserCollectionViewCell: UICollectionViewCell {
         addSubview(containerView)
     }
     
-    func setupAvatar() {
+    private func setupAvatar() {
         avatar.layer.borderColor = UIColor.black.cgColor
         avatar.layer.borderWidth = 1
         avatar.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(avatar)
     }
     
-    func setupLoginLabel() {
+    private func setupLoginLabel() {
         login.font = UIFont.systemFont(ofSize: 24)
         login.tintColor = UIColor.black
         login.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(login)
     }
     
-    func setupIdLabel() {
+    private func setupIdLabel() {
         id.font = UIFont.systemFont(ofSize: 20)
         id.tintColor = UIColor.black
         id.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(id)
     }
     
-    func setupChevron() {
+    private func setupChevron() {
         chevron.image = UIImage(named: "chevron")
         chevron.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(chevron)
     }
     
-    func setupLayoutUserCell() {
+    private func setupLayoutUserCell() {
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.topAnchor.constraint(equalTo: topAnchor),
@@ -116,7 +116,7 @@ class UserCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-//    MARK: -Configure
+//    MARK: - Configure
     
     func configure(model: User, indexPath: Int) {
         login.text = model.login

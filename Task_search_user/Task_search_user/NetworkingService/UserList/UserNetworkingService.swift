@@ -8,11 +8,13 @@
 import UIKit
 
 class UserNetworkService {
+   
+    var urlSession = URLSession.shared
     
     func request(urlString: String, completion: @escaping (Result<UserSearchResponse, Error>) -> Void) {
         guard let url = URL(string: urlString) else { return }
-        let session = URLSession.shared
-        session.dataTask(with: url) { data, response, error in
+//        let session = URLSession.shared
+        urlSession.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
                 if let error = error {
                     print("some error")

@@ -21,7 +21,7 @@ class DetailUserImageCollectionViewCell: UICollectionViewCell {
     var containerView = UIView(frame: .zero)
     var avatar = UIImageView(frame: .zero)
 
-//      MARK: -Setup 
+//      MARK: - Setup 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUIElements()
@@ -31,26 +31,26 @@ class DetailUserImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUIElements() {
+    private func setupUIElements() {
         setupContainerView()
         setupAvatar()
         setupLayoutUserCell()
     }
     
-    func setupContainerView() {
+    private func setupContainerView() {
         containerView.backgroundColor = UIColor.white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
     }
     
-    func setupAvatar() {
+    private func setupAvatar() {
         avatar.layer.borderColor = UIColor.black.cgColor
         avatar.layer.borderWidth = 1
         avatar.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(avatar)
     }
     
-    func setupLayoutUserCell() {
+    private func setupLayoutUserCell() {
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.topAnchor.constraint(equalTo: topAnchor),
