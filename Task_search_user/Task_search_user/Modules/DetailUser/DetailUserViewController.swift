@@ -34,6 +34,8 @@ class DetailUserViewController: UIViewController {
     
     private let presenter: DetailUserViewOutput
     
+    private var activityIndicator = UIActivityIndicatorView()
+    
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
 
@@ -62,12 +64,14 @@ class DetailUserViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presenter.updateDataFromServer()
+        activityIndicator.stopAnimating()
     }
     
 //    MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = UIColor.white
         setupNavigationBar()
+        setupActivityIndicator()
         setupCollectionView()
         setupLayout()
     }
@@ -88,8 +92,16 @@ class DetailUserViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private func setupActivityIndicator() {
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.addSubview(activityIndicator)
+    }
+    
     private func setupLayout() {
         NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

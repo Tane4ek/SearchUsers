@@ -31,6 +31,7 @@
 		096CB435279A8E39008F11D5 /* DetailUserConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CB434279A8E39008F11D5 /* DetailUserConfigurator.swift */; };
 		096DFF5927AEECE70054BCC3 /*  SearchUserSlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096DFF5827AEECE70054BCC3 /*  SearchUserSlowTests.swift */; };
 		096DFF6627AEF5D90054BCC3 /* SearchUserFakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096DFF6527AEF5D90054BCC3 /* SearchUserFakeTests.swift */; };
+		096DFF6D27AF06F30054BCC3 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096DFF6C27AF06F30054BCC3 /* URLSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		096DFF5827AEECE70054BCC3 /*  SearchUserSlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SearchUserSlowTests.swift"; sourceTree = "<group>"; };
 		096DFF6327AEF5D90054BCC3 /* SearchUserFakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchUserFakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		096DFF6527AEF5D90054BCC3 /* SearchUserFakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserFakeTests.swift; sourceTree = "<group>"; };
+		096DFF6C27AF06F30054BCC3 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 		096CB421279830D0008F11D5 /* NetworkingService */ = {
 			isa = PBXGroup;
 			children = (
+				096DFF6C27AF06F30054BCC3 /* URLSession.swift */,
 				096CB4272798320E008F11D5 /* UserList */,
 				096CB42827983220008F11D5 /* DetailUser */,
 			);
@@ -382,6 +385,7 @@
 				096CB42A279844F4008F11D5 /* UserDetail.swift in Sources */,
 				096CB41A27983070008F11D5 /* UserListProtocol.swift in Sources */,
 				096CB41227974A35008F11D5 /* DetailUserViewController.swift in Sources */,
+				096DFF6D27AF06F30054BCC3 /* URLSession.swift in Sources */,
 				096CB42C279846D0008F11D5 /* DetailUserNetworkService.swift in Sources */,
 				096CB41627974FDD008F11D5 /* DetailUserImageCollectionViewCell.swift in Sources */,
 				096CB3FF279590F5008F11D5 /* UserSearchResponse.swift in Sources */,

@@ -82,8 +82,8 @@ class UserListViewController: UIViewController {
         presenter.viewWillAppear()
     }
     
-//      MARK: - Setup UI
-     private func setupUI() {
+    //      MARK: - Setup UI
+    private func setupUI() {
         view.backgroundColor = UIColor.white
         setupNavigationBar()
         setupTextField()
